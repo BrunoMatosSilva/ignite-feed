@@ -2,7 +2,7 @@ import styles from './Avatar.module.css';
 
 interface AvatarProps {
     image: string;
-    hasBorder: boolean;
+    hasBorder?: boolean;
 }
 
 export function Avatar({ image, hasBorder = true }: AvatarProps) {
