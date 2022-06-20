@@ -1,6 +1,6 @@
 import { format, formatDistanceToNow } from 'date-fns';
 import ptBR from 'date-fns/locale/pt-BR';
-import { useState } from 'react';
+import { ChangeEvent, FormEvent, InvalidEvent, useState } from 'react';
 
 import { Avatar } from './Avatar';
 import { Comment } from './Comment';
@@ -37,7 +37,7 @@ export function Post({ author, content, publishedAt }: PostProps) {
         addSuffix: true,
     })
 
-    function handleCreateNewComment(event: any) {
+    function handleCreateNewComment(event: FormEvent) {
         event?.preventDefault()
         setComments([
             ...comments,
@@ -47,12 +47,12 @@ export function Post({ author, content, publishedAt }: PostProps) {
         setNewCommentText('');
     }
 
-    function handleNewCommentChange(event: any) {
+    function handleNewCommentChange(event: ChangeEvent<HTMLTextAreaElement>) {
         event?.target.setCustomValidity('')
         setNewCommentText(event?.target.value)
     }
 
-    function deleteComment(commentToDelete: any) {
+    function deleteComment(commentToDelete: string) {
         const commentsWithoutDeletedOne = comments.filter(comment => {
             return comment !== commentToDelete;
         });
@@ -60,7 +60,7 @@ export function Post({ author, content, publishedAt }: PostProps) {
         setComments(commentsWithoutDeletedOne);
     }
 
-    function handleNewCommentInvalid(event: any) {
+    function handleNewCommentInvalid(event: InvalidEvent<HTMLTextAreaElement>) {
         event?.target.setCustomValidity('Campo obrigatorio não preenchido!')
     }
 
